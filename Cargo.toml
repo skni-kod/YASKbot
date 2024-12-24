@@ -1,0 +1,11 @@
+[package]
+name = "yask-bot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.42.0", features = ["rt-multi-thread"] }
+poise = "0.6.1"
+dotenv = "0.15.0"
+diesel = { version = "2.2.0", features = ["sqlite", "returning_clauses_for_sqlite_3_35"] }
+libsqlite3-sys = { version = "0.30", features = ["bundled"] }
