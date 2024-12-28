@@ -1,11 +1,12 @@
-use std::env;
 use diesel::prelude::*;
+use std::env;
 
 // This module exports functions for data retention
 // Design goal - allow to interchange between sqlite, postgres, etc
-pub mod schema;
+pub mod commands;
 pub mod models;
-
+pub mod queries;
+pub mod schema;
 
 pub fn establish_connection() -> SqliteConnection {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");

@@ -1,10 +1,8 @@
 mod commands;
 mod database;
 mod tasks;
-use poise::serenity_prelude as serenity;
 use dotenv::dotenv;
-
-
+use poise::serenity_prelude as serenity;
 
 #[tokio::main]
 async fn main() {
@@ -15,7 +13,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![commands::age()],
+            commands: vec![commands::TestCommand::execute_command()],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
