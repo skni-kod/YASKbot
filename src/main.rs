@@ -1,8 +1,11 @@
 mod commands;
 mod database;
 mod tasks;
+
 use dotenv::dotenv;
 use poise::serenity_prelude as serenity;
+use tasks::{OtherTask, SimpleTask, Task};
+use tokio_cron_scheduler::JobScheduler;
 
 #[tokio::main]
 async fn main() {
@@ -23,6 +26,13 @@ async fn main() {
             })
         })
         .build();
+    // Register jobs
+    let sched = JobScheduler::new().await.unwrap();
+    let tasks: Vec<Box<dyn Task>> = vec![Box::new(SimpleTask), Box::new(OtherTask)];
+    for job in &tasks {
+        sched.add(job.job()).await.unwrap();
+    }
+    sched.start().await.unwrap();
 
     let client = serenity::ClientBuilder::new(token, intents)
         .framework(framework)
